@@ -7,6 +7,7 @@ import { HowItWorks } from './components/HowItWorks';
 import { Testimonials } from './components/Testimonials';
 import { Footer } from './components/Footer';
 import { ProductDetail } from './components/ProductDetail';
+import { ShopPage } from './components/ShopPage';
 import { ScrollToTop } from './components/ScrollToTop';
 
 function HomePage() {
@@ -29,6 +30,7 @@ export default function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/shop" element={<ShopPage />} />
           <Route path="/products/:id" element={<ProductDetail />} />
         </Routes>
         <Footer />

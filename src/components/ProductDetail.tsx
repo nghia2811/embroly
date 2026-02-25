@@ -1,56 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { Star, ChevronRight, Truck, ShieldCheck, RefreshCw, Minus, Plus, Heart, Share2 } from 'lucide-react';
 import { motion } from 'motion/react';
-
-const product = {
-  id: 'infinity-sweatshirt',
-  title: "Custom Embroidered Infinity Sweatshirt or Hoodie with Initials, Personalized Wedding Anniversary Gifts for Wife",
-  price: 35.99,
-  originalPrice: 51.12,
-  rating: 5,
-  reviews: 23,
-  description: "A custom embroidered infinity sweatshirt with initials is more than just a hoodie - it's a symbol of everlasting love. Designed to celebrate your wedding anniversary, this personalized hoodie transforms a simple garment into a deeply meaningful gift your wife will cherish.",
-  images: [
-    "https://picsum.photos/seed/infinity1/800/800",
-    "https://picsum.photos/seed/infinity2/800/800",
-    "https://picsum.photos/seed/infinity3/800/800",
-    "https://picsum.photos/seed/infinity4/800/800",
-  ],
-  colors: [
-    { name: 'Black', class: 'bg-black' },
-    { name: 'White', class: 'bg-white border-gray-200' },
-    { name: 'Navy', class: 'bg-blue-900' },
-    { name: 'Sport Grey', class: 'bg-gray-400' },
-    { name: 'Pink', class: 'bg-pink-300' },
-    { name: 'Sand', class: 'bg-[#eecfa1]' },
-    { name: 'Forest Green', class: 'bg-green-800' },
-    { name: 'Maroon', class: 'bg-red-900' },
-  ],
-  sizes: ['S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL'],
-  styles: ['Sweatshirt', 'Hoodie'],
-  threadColors: ['Black', 'White', 'Red', 'Blue', 'Gold', 'Silver', 'Pink']
-};
+import { products } from '../data/products';
 
 export function ProductDetail() {
+  const { id } = useParams();
+  const product = products.find(p => p.id === id) || products[0]; // Fallback to first product if not found
+
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-  const [selectedSize, setSelectedSize] = useState('M');
-  const [selectedStyle, setSelectedStyle] = useState('Sweatshirt');
+  const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
+  const [selectedStyle, setSelectedStyle] = useState(product.styles[0]);
   const [quantity, setQuantity] = useState(1);
   const [customText, setCustomText] = useState('');
   const [embroideryPos, setEmbroideryPos] = useState('Left chest');
-  const [threadColor, setThreadColor] = useState('White');
+  const [threadColor, setThreadColor] = useState(product.threadColors[0]);
+
+  // Reset state when product changes
+  useEffect(() => {
+    setSelectedImage(0);
+    setSelectedColor(product.colors[0]);
+    setSelectedSize(product.sizes[0]);
+    setSelectedStyle(product.styles[0]);
+    setQuantity(1);
+    setCustomText('');
+    setEmbroideryPos('Left chest');
+    setThreadColor(product.threadColors[0]);
+  }, [product]);
+
+  if (!product) {
+    return <div className="text-center py-20">Product not found</div>;
+  }
 
   return (
     <div className="bg-white min-h-screen pb-20">
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center text-sm text-gray-500">
-          <a href="/" className="hover:text-gray-900">Home</a>
+          <Link to="/" className="hover:text-gray-900">Home</Link>
           <ChevronRight className="w-4 h-4 mx-2" />
-          <a href="/shop" className="hover:text-gray-900">Couples Hoodies & Sweatshirts</a>
+          <Link to="/shop" className="hover:text-gray-900">Embroidered Apparel</Link>
           <ChevronRight className="w-4 h-4 mx-2" />
-          <span className="text-gray-900 truncate">Custom Embroidered Infinity Sweatshirt...</span>
+          <span className="text-gray-900 truncate">{product.title}</span>
         </div>
       </div>
 
@@ -111,7 +103,7 @@ export function ProductDetail() {
               <p className="text-3xl font-bold text-gray-900">${product.price}</p>
               <p className="text-lg text-gray-500 line-through">${product.originalPrice}</p>
               <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                -30%
+                -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
               </span>
             </div>
 
