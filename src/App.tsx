@@ -8,6 +8,8 @@ import { Testimonials } from './components/Testimonials';
 import { Footer } from './components/Footer';
 import { ProductDetail } from './components/ProductDetail';
 import { ShopPage } from './components/ShopPage';
+import { BlogList } from './components/BlogList';
+import { BlogPost } from './components/BlogPost';
 import { ScrollToTop } from './components/ScrollToTop';
 
 function HomePage() {
@@ -32,6 +34,8 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/products/:id" element={<ProductDetail />} />
+          <Route path="/blogs/news" element={<BlogList />} />
+          <Route path="/blogs/news/:slug" element={<BlogPost />} />
         </Routes>
         <Footer />
       </div>

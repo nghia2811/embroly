@@ -21,6 +21,7 @@ export function Navbar() {
           <div className="hidden md:flex space-x-8 items-center">
             <Link to="/" className="text-gray-600 hover:text-gray-900 transition-colors">Home</Link>
             <Link to="/shop" className="text-gray-600 hover:text-gray-900 transition-colors">Shop</Link>
+            <Link to="/blogs/news" className="text-gray-600 hover:text-gray-900 transition-colors">Blog</Link>
             <Link to="/about" className="text-gray-600 hover:text-gray-900 transition-colors">About Us</Link>
             <Link to="/contact" className="text-gray-600 hover:text-gray-900 transition-colors">Contact</Link>
           </div>
@@ -59,6 +60,7 @@ export function Navbar() {
             <div className="px-4 pt-2 pb-6 space-y-2">
               <Link to="/" className="block py-2 text-gray-600 hover:text-gray-900" onClick={() => setIsOpen(false)}>Home</Link>
               <Link to="/shop" className="block py-2 text-gray-600 hover:text-gray-900" onClick={() => setIsOpen(false)}>Shop</Link>
+              <Link to="/blogs/news" className="block py-2 text-gray-600 hover:text-gray-900" onClick={() => setIsOpen(false)}>Blog</Link>
               <Link to="/about" className="block py-2 text-gray-600 hover:text-gray-900" onClick={() => setIsOpen(false)}>About Us</Link>
               <Link to="/contact" className="block py-2 text-gray-600 hover:text-gray-900" onClick={() => setIsOpen(false)}>Contact</Link>
             </div>
